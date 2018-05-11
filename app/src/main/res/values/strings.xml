@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Youth Songs</string>
+    <string name="NameOfSongTextBox">Введите название или номер песни</string>
+    <string name="searchimage">searchImage</string>
 </resources>
