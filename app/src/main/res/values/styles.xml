@@ -10,4 +10,5 @@
 
     <style name="YouthSongsTheme" parent="AppTheme" />
 
+    <dimen name="text_settings">25sp</dimen>
 </resources>

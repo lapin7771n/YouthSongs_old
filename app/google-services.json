@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "502187402748",
+    "firebase_url": "https://youthsongs-69220.firebaseio.com",
+    "project_id": "youthsongs-69220",
+    "storage_bucket": "youthsongs-69220.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:502187402748:android:b2cb5ea543fb6e1e",
+        "android_client_info": {
+          "package_name": "com.example.nikit.youthsongs"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "502187402748-jvr6lkjijqu6vj3qb317t556mrc9drnv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.nikit.youthsongs",
+            "certificate_hash": "e223df49e5e160e7b8650ce92061c4604e40d061"
+          }
+        },
+        {
+          "client_id": "502187402748-sjid7ge4v8fia3e8llfhnthpgsoikme9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKXg1NC_uMKvTsWcWvB-sJ4XtKhDVryjM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "502187402748-sjid7ge4v8fia3e8llfhnthpgsoikme9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
