@@ -1,69 +1,82 @@
 package com.example.nikit.youthsongs;
 
-import android.app.Activity;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
+import android.widget.TextView;
+
+import com.example.nikit.youthsongs.Adapters.SongListAdapter;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
-public class MainActivity extends Activity {
+public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
 
-        mDBHelper = new SongsDBHelper(this);
+        //Переменная для работы с БД
+        SongsDBHelper mDBHelper = new SongsDBHelper(this);
 
         mlistView = findViewById(R.id.list_view_of_songs);
 
         mDBHelper.updateDataBase();
 
         mDb = mDBHelper.getWritableDatabase();
-        loadDatafromDB();
+        loadDataFromDB();
 
         mlistView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(MainActivity.this, SongTextActivity.class);
-                intent.putExtra("position", ++position + "");
+                @SuppressLint("ResourceType") View v = ((LinearLayout) view).getChildAt(0);
+                String numberOfSong = ((TextView) v).getText().toString();
+                intent.putExtra("position", numberOfSong + "");
                 startActivity(intent);
             }
         });
     }
 
-    //Переменная для работы с БД
-    private SongsDBHelper mDBHelper;
     private SQLiteDatabase mDb;
 
     //ListView of songs
     private ListView mlistView;
 
-    void loadDatafromDB() {
-        ArrayList<HashMap<String, Object>> songs = new ArrayList<>();
 
-        HashMap<String, Object> currentSong;
+    /************************************************
+     *
+     * Setting all data up and filling ListView
+     *
+     ************************************************/
+    void loadDataFromDB() {
+        ArrayList<Song> songs = new ArrayList<>();
 
         Cursor cursor = mDb.rawQuery("SELECT * FROM Songs", null);
         cursor.moveToFirst();
+        cursor.moveToNext();
 
         while (!cursor.isAfterLast()) {
             //Remember ID and Name of song
             int songId = cursor.getInt(0);
             String songName = cursor.getString(1);
+            if (songName != null && !songName.equals(""))
+                songName = songName.trim();
+            else {
+                cursor.moveToNext();
+                continue;
+            }
 
-            currentSong = new HashMap<>();
-
-            currentSong.put("number", songId);
-            currentSong.put("name", songName);
+            Song currentSong = new Song(songId, songName, cursor.getString(2));
 
             songs.add(currentSong);
 
@@ -71,13 +84,11 @@ public class MainActivity extends Activity {
             cursor.moveToNext();
         }
         cursor.close();
-        //Log.v("1488", songs.toString());
+        Log.v("1488", String.valueOf(songs.size()));
 
-        String[] from = {"number", "name"};
-        int[] to = {R.id.item_number, R.id.item_name};
-
-        SimpleAdapter simpleAdapter = new SimpleAdapter(this, songs, R.layout.adapter_song_item, from, to);
-        mlistView.setAdapter(simpleAdapter);
+        SongListAdapter songListAdapter = new SongListAdapter(this, songs);
+        mlistView.setAdapter(songListAdapter);
+        Song.allSongs = songs;
     }
 
 

@@ -1,58 +1,51 @@
 package com.example.nikit.youthsongs;
 
+import java.util.ArrayList;
+
 public class Song {
+    static ArrayList<Song> allSongs = new ArrayList<>();
 
-    private int number;
-    private String nameOfSong;
-    private String text;
-    private boolean presenceOfChords;
+    private int mNumber;
+    private String mNameOfSong;
+    private String mText;
+    private boolean mPresenceOfChords;
 
-    public Song() {
+    Song() {
     }
 
-    public Song(int number, String nameOfSong, String text, boolean presenceOfChords) {
-        this.number = number;
-        this.nameOfSong = nameOfSong;
-        this.text = text;
-        this.presenceOfChords = presenceOfChords;
+    Song(int number, String nameOfSong, String text) {
+        this.mNumber = number;
+        this.mNameOfSong = nameOfSong;
+        this.mText = text;
+        this.mPresenceOfChords = false;
     }
 
     public Song(int number, String nameOfSong) {
-        this.number = number;
-        this.nameOfSong = nameOfSong;
+        this.mNumber = number;
+        this.mNameOfSong = nameOfSong;
     }
 
+    /************************************************************
+     *
+     * Getters and overriding equals
+     *
+     **************************************************************/
     public int getNumber() {
-        return number;
-    }
-
-    public void setNumber(int number) {
-        if (number != 0) this.number = number;
+        return mNumber;
     }
 
     public String getNameOfSong() {
-        return nameOfSong;
-    }
-
-    public void setNameOfSong(String nameOfSong) {
-        if (nameOfSong!=null) this.nameOfSong = nameOfSong;
+        return mNameOfSong;
     }
 
     public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
+        return mText;
     }
 
     public boolean isPresenceOfChords() {
-        return presenceOfChords;
+        return mPresenceOfChords;
     }
 
-    public void setPresenceOfChords(boolean presenceOfChords) {
-        this.presenceOfChords = presenceOfChords;
-    }
 
     @Override
     public boolean equals(Object obj) {
@@ -60,6 +53,34 @@ public class Song {
         if (obj == null || getClass() != obj.getClass()) return false;
 
         Song song = (Song) obj;
-        return (this.number == song.number && this.nameOfSong.equals(song.nameOfSong));
+        return (this.mNumber == song.mNumber && this.mNameOfSong.equals(song.mNameOfSong));
+    }
+
+    /***********************************************
+     *
+     * Inner class for parsing songs
+     *
+     ***********************************************/
+    class SongParser {
+
+        /********************************************
+         *
+         * Method for parsing chords
+         * @param textOfSong String res
+         * @return ArrayList of lines that contains "|"
+         *
+         *********************************************/
+        ArrayList<String> parsingChords(String textOfSong) {
+            ArrayList<String> chords = new ArrayList<>();
+            String[] lines = textOfSong.split("\n");
+            for (String line : lines) {
+                String currentLine = line.trim();
+                if (currentLine.startsWith("|"))
+                    chords.add(currentLine);
+            }
+
+
+            return chords;
+        }
     }
 }

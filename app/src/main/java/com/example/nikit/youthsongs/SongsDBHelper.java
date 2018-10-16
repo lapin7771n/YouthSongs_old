@@ -15,7 +15,7 @@ public class SongsDBHelper extends SQLiteOpenHelper {
 
     private static String DB_NAME = "songs.db";
     private static String DB_PATH = "";
-    private static final int DB_VERSION = 2;
+    private static final int DB_VERSION = 5;
 
     private SQLiteDatabase mDataBase;
     private final Context mContext;
@@ -32,7 +32,7 @@ public class SongsDBHelper extends SQLiteOpenHelper {
         this.getReadableDatabase();
     }
 
-    public void updateDataBase() {
+    void updateDataBase() {
         if (mNeedUpdate) {
             File dbFile = new File(DB_PATH + DB_NAME);
             if (dbFile.exists())
