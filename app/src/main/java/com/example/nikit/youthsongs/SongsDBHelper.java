@@ -15,7 +15,7 @@ public class SongsDBHelper extends SQLiteOpenHelper {
 
     private static String DB_NAME = "songs.db";
     private static String DB_PATH = "";
-    private static final int DB_VERSION = 5;
+    private static final int DB_VERSION = 7;
 
     private SQLiteDatabase mDataBase;
     private final Context mContext;

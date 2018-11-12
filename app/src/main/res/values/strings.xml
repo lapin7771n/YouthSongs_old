@@ -4,4 +4,5 @@
     <string name="searchimage">searchImage</string>
     <string name="_999">999</string>
     <string name="name">Name</string>
+    <string name="text_of_song_label">Text of song</string>
 </resources>
